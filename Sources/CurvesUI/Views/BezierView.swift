@@ -17,6 +17,14 @@ public struct BezierView: View {
     /// Whether the control points are shown or not, and if they can be manipulated
     let isEditing: Bool
     
+    public init(
+        normalizedControlPoints: Binding<BezierControlPoints>,
+        isEditing: Bool
+    ) {
+        self._normalizedControlPoints = normalizedControlPoints
+        self.isEditing = isEditing
+    }
+    
     public var body: some View {
         ZStack {
             if isEditing {
