@@ -34,7 +34,10 @@ public struct BezierView: View {
                 .drawingGroup()
                 .allowsHitTesting(!isEditing)
                 .overlay(GeometryReader { proxy in
-                    Color.clear.preference(key: ReadSizePreferenceKey.self, value: proxy.size)
+                    Color.clear.preference(
+                        key: ReadSizePreferenceKey.self,
+                        value: proxy.size
+                    )
                 })
                 .onPreferenceChange(ReadSizePreferenceKey.self) { size in
                     self.size = size

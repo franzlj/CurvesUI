@@ -8,19 +8,17 @@ struct ControlHandleConnectionsShape<Control: CurveControl>: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
             guard
-                !self.controlPoints.isEmpty,
+                !controlPoints.isEmpty,
                 let start = controlPoints[.start],
                 let end = controlPoints[.end]
             else { return }
             
             path.move(to: start)
             
-            // FIX-ME: somehow the generic approach here breaks
-            // drawing the handles in our default cubic bezier setup.
             Control.start.companionPoint
                 .flatMap { controlPoints[$0] }
                 .flatMap {
-                    path.move(to: $0)
+                    path.addLine(to: $0)
                 }
             
             path.move(to: end)
@@ -28,7 +26,7 @@ struct ControlHandleConnectionsShape<Control: CurveControl>: Shape {
             Control.end.companionPoint
                 .flatMap { controlPoints[$0] }
                 .flatMap {
-                    path.move(to: $0)
+                    path.addLine(to: $0)
                 }
         }
     }
